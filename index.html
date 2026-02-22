@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulce Atelier – Pastelería Artesanal de Lujo</title>
+    <meta name="description"
+        content="Dulce Atelier: pastelería artesanal de lujo en Lima. Tortas personalizadas, macarons, cheesecakes y talleres de repostería. Delivery a Lima.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ===================== VARIABLES ===================== */
+        :root {
+            --color-primary: #F5E6E0;
+            --color-secondary: #C9A96E;
+            --color-dark: #3D2314;
+            --color-cream: #FDFAF7;
+            --color-accent: #E8C4B8;
+            --color-choco: #2A160C;
+            --shadow-rose: 0 8px 32px rgba(201, 169, 110, .18);
+            --shadow-card: 0 4px 24px rgba(197, 140, 120, .22);
+            --transition: cubic-bezier(.4, 0, .2, 1);
+            --radius-pill: 50px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--color-cream);
+            color: var(--color-dark);
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        ul {
+            list-style: none
+        }
+
+        /* ===================== UTILITIES ===================== */
+        .container {
+            width: min(1200px, 92vw);
+            margin-inline: auto
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            color: var(--color-dark);
+            line-height: 1.15
+        }
+
+        .section-title span {
+            color: var(--color-secondary)
+        }
+
+        .gold-line {
+            display: inline-block;
+            width: 60px;
+            height: 3px;
+            background: var(--color-secondary);
+            border-radius: 2px;
+            margin-bottom: 1.2rem
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: .9rem 2.2rem;
+            background: var(--color-secondary);
+            color: #fff;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: .95rem;
+            letter-spacing: .08em;
+            border-radius: var(--radius-pill);
+            border: 2px solid var(--color-secondary);
+            cursor: pointer;
+            transition: all .35s var(--transition)
+        }
+
+        .btn-gold:hover {
+            background: transparent;
+            color: var(--color-secondary);
+            transform: scale(1.04)
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: .9rem 2.2rem;
+            background: transparent;
+            color: var(--color-dark);
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: .95rem;
+            letter-spacing: .08em;
+            border-radius: var(--radius-pill);
+            border: 2px solid var(--color-dark);
+            cursor: pointer;
+            transition: all .35s var(--transition)
+        }
+
+        .btn-outline:hover {
+            background: var(--color-dark);
+            color: var(--color-cream);
+            transform: scale(1.04)
+        }
+
+        /* ===================== SCROLL ANIMATIONS ===================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .7s var(--transition), transform .7s var(--transition)
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* ===================== NAVBAR ===================== */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: background .4s var(--transition), box-shadow .4s var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px)
+        }
+
+        #navbar.scrolled {
+            background: rgba(253, 250, 247, .96);
+            box-shadow: 0 2px 20px rgba(61, 35, 20, .1)
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            letter-spacing: .04em
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center
+        }
+
+        .nav-links a {
+            font-family: 'Lato', sans-serif;
+            font-size: .9rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            color: var(--color-dark);
+            transition: color .25s
+        }
+
+        .nav-links a:hover {
+            color: var(--color-secondary)
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-dark);
+            transition: all .3s
+        }
+
+        @media(max-width:768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--color-cream);
+                padding: 1.5rem 5%;
+                flex-direction: column;
+                gap: 1.2rem;
+                box-shadow: 0 8px 20px rgba(61, 35, 20, .1)
+            }
+
+            .nav-links.open {
+                display: flex
+            }
+
+            .nav-toggle {
+                display: flex
+            }
+        }
+
+        /* ===================== HERO ===================== */
+        #hero {
+            min-height: 100vh;
+            background: var(--color-cream);
+            display: flex;
+            align-items: center;
+            padding: 7rem 0 4rem
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center
+        }
+
+        .hero-label {
+            font-family: 'Lato', sans-serif;
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .25em;
+            color: var(--color-secondary);
+            text-transform: uppercase;
+            margin-bottom: 1rem
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--color-dark);
+            margin-bottom: 1.5rem
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: #7a5a4a;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 420px
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap
+        }
+
+        /* 3D Carousel in Hero */
+        .hero-carousel-wrap {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+            overflow: visible;
+        }
+
+        .hero-circle {
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            opacity: .4;
+            filter: blur(20px);
+        }
+
+        .carousel-3d {
+            position: relative;
+            width: 260px;
+            height: 340px;
+            transform-style: preserve-3d;
+            animation: rotate-carousel 24s infinite linear;
+            z-index: 1;
+        }
+
+        .carousel-item-3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(61, 35, 20, .3);
+            border: 4px solid var(--color-cream);
+            /* Reflection effect like the image provided */
+            -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, rgba(0, 0, 0, 0.2));
+            /* Positioned in a cylinder */
+        }
+
+        .carousel-item-3d img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-item-3d:nth-child(1) {
+            transform: rotateY(0deg) translateZ(280px);
+        }
+
+        .carousel-item-3d:nth-child(2) {
+            transform: rotateY(60deg) translateZ(280px);
+        }
+
+        .carousel-item-3d:nth-child(3) {
+            transform: rotateY(120deg) translateZ(280px);
+        }
+
+        .carousel-item-3d:nth-child(4) {
+            transform: rotateY(180deg) translateZ(280px);
+        }
+
+        .carousel-item-3d:nth-child(5) {
+            transform: rotateY(240deg) translateZ(280px);
+        }
+
+        .carousel-item-3d:nth-child(6) {
+            transform: rotateY(300deg) translateZ(280px);
+        }
+
+        @keyframes rotate-carousel {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(-360deg);
+            }
+        }
+
+        @media(max-width:1024px) {
+            .hero-carousel-wrap {
+                height: 400px;
+                perspective: 1000px;
+            }
+
+            .carousel-3d {
+                width: 220px;
+                height: 280px;
+            }
+
+            .carousel-item-3d:nth-child(1) {
+                transform: rotateY(0deg) translateZ(220px);
+            }
+
+            .carousel-item-3d:nth-child(2) {
+                transform: rotateY(60deg) translateZ(220px);
+            }
+
+            .carousel-item-3d:nth-child(3) {
+                transform: rotateY(120deg) translateZ(220px);
+            }
+
+            .carousel-item-3d:nth-child(4) {
+                transform: rotateY(180deg) translateZ(220px);
+            }
+
+            .carousel-item-3d:nth-child(5) {
+                transform: rotateY(240deg) translateZ(220px);
+            }
+
+            .carousel-item-3d:nth-child(6) {
+                transform: rotateY(300deg) translateZ(220px);
+            }
+
+            .hero-circle {
+                width: 350px;
+                height: 350px;
+            }
+        }
+
+        @media(max-width:768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                overflow: hidden;
+                /* prevent horizontal scroll on mobile */
+            }
+
+            .hero-carousel-wrap {
+                order: -1;
+                height: 350px;
+                perspective: 800px;
+            }
+
+            .hero-circle {
+                width: 250px;
+                height: 250px;
+            }
+
+            .carousel-3d {
+                width: 160px;
+                height: 220px;
+            }
+
+            .carousel-item-3d:nth-child(1) {
+                transform: rotateY(0deg) translateZ(160px);
+            }
+
+            .carousel-item-3d:nth-child(2) {
+                transform: rotateY(60deg) translateZ(160px);
+            }
+
+            .carousel-item-3d:nth-child(3) {
+                transform: rotateY(120deg) translateZ(160px);
+            }
+
+            .carousel-item-3d:nth-child(4) {
+                transform: rotateY(180deg) translateZ(160px);
+            }
+
+            .carousel-item-3d:nth-child(5) {
+                transform: rotateY(240deg) translateZ(160px);
+            }
+
+            .carousel-item-3d:nth-child(6) {
+                transform: rotateY(300deg) translateZ(160px);
+            }
+        }
+
+        /* ===================== VALORES ===================== */
+        #valores {
+            background: var(--color-dark);
+            padding: 4rem 0;
+            clip-path: polygon(0 8%, 100% 0, 100% 92%, 0 100%);
+            margin: -2px 0
+        }
+
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem
+        }
+
+        .valor-item {
+            text-align: center;
+            color: var(--color-cream)
+        }
+
+        .valor-icon {
+            font-size: 2.2rem;
+            margin-bottom: .8rem
+        }
+
+        .valor-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            line-height: 1
+        }
+
+        .valor-label {
+            font-family: 'Lato', sans-serif;
+            font-size: .85rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-top: .4rem;
+            color: var(--color-accent)
+        }
+
+        .valor-desc {
+            font-size: .82rem;
+            margin-top: .3rem;
+            opacity: .75
+        }
+
+        @media(max-width:768px) {
+            .valores-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        /* ===================== CATÁLOGO ===================== */
+        #catalogo {
+            padding: 6rem 0
+        }
+
+        .catalog-header {
+            text-align: center;
+            margin-bottom: 3.5rem
+        }
+
+        .catalog-header p {
+            color: #8a6a5a;
+            margin-top: .8rem;
+            font-size: 1rem
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: transform .35s var(--transition), box-shadow .35s var(--transition);
+            position: relative
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(197, 140, 120, .32)
+        }
+
+        .product-img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover
+        }
+
+        .badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--color-secondary);
+            color: #fff;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            padding: .35rem .85rem;
+            border-radius: var(--radius-pill)
+        }
+
+        .product-body {
+            padding: 1.4rem
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: .4rem
+        }
+
+        .product-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-secondary)
+        }
+
+        .product-desc {
+            font-size: .82rem;
+            color: #9a7a6a;
+            margin-top: .4rem;
+            line-height: 1.6
+        }
+
+        .product-btn {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            padding: .65rem 0;
+            border: 2px solid var(--color-secondary);
+            color: var(--color-secondary);
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: .82rem;
+            letter-spacing: .06em;
+            transition: all .3s var(--transition)
+        }
+
+        .product-btn:hover {
+            background: var(--color-secondary);
+            color: #fff
+        }
+
+        @media(max-width:1024px) {
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media(max-width:600px) {
+            .catalog-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* ===================== TESTIMONIOS ===================== */
+        #testimonios {
+            background: var(--color-primary);
+            padding: 6rem 0
+        }
+
+        .testi-header {
+            text-align: center;
+            margin-bottom: 3rem
+        }
+
+        .carousel-wrap {
+            position: relative;
+            overflow: hidden
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform .6s var(--transition)
+        }
+
+        .testi-card {
+            min-width: 100%;
+            padding: 0 1rem;
+            text-align: center
+        }
+
+        .testi-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.2rem;
+            border: 3px solid var(--color-secondary);
+            box-shadow: 0 0 0 6px rgba(201, 169, 110, .15)
+        }
+
+        .testi-stars {
+            color: var(--color-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem
+        }
+
+        .testi-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--color-dark);
+            max-width: 680px;
+            margin: 0 auto 1.5rem
+        }
+
+        .testi-name {
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: .9rem;
+            letter-spacing: .1em;
+            color: var(--color-secondary);
+            text-transform: uppercase
+        }
+
+        .testi-city {
+            font-size: .82rem;
+            color: #9a7a6a;
+            margin-top: .2rem
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: .6rem;
+            margin-top: 2rem
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            cursor: pointer;
+            transition: background .3s, transform .3s
+        }
+
+        .carousel-dot.active {
+            background: var(--color-secondary);
+            transform: scale(1.3)
+        }
+
+        /* ===================== TALLERES ===================== */
+        #talleres {
+            padding: 6rem 0;
+            background: var(--color-cream)
+        }
+
+        .talleres-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center
+        }
+
+        .taller-img {
+            width: 100%;
+            border-radius: 16px;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            box-shadow: 0 16px 48px rgba(61, 35, 20, .15)
+        }
+
+        .taller-label {
+            font-family: 'Lato', sans-serif;
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .25em;
+            color: var(--color-secondary);
+            text-transform: uppercase;
+            margin-bottom: .8rem
+        }
+
+        .taller-text {
+            margin: 1.2rem 0 1.8rem;
+            color: #7a5a4a;
+            line-height: 1.8;
+            font-size: 1rem
+        }
+
+        .taller-lista li {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .55rem 0;
+            border-bottom: 1px solid var(--color-accent);
+            font-size: .92rem;
+            color: var(--color-dark)
+        }
+
+        .taller-lista li::before {
+            content: '✦';
+            color: var(--color-secondary);
+            font-size: .7rem
+        }
+
+        .fechas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.8rem 0
+        }
+
+        .fecha-tag {
+            padding: .5rem 1.2rem;
+            border: 1.5px solid var(--color-secondary);
+            border-radius: var(--radius-pill);
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            letter-spacing: .06em
+        }
+
+        @media(max-width:768px) {
+            .talleres-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* ===================== GALERÍA ===================== */
+        #galeria {
+            padding: 6rem 0;
+            background: var(--color-cream)
+        }
+
+        .galeria-header {
+            text-align: center;
+            margin-bottom: 3rem
+        }
+
+        .galeria-header .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: var(--color-secondary);
+            margin: 1rem auto 0
+        }
+
+        .masonry {
+            columns: 3;
+            column-gap: 1.2rem
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.2rem;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: zoom-in
+        }
+
+        .masonry-item img {
+            width: 100%;
+            display: block;
+            transition: transform .5s var(--transition)
+        }
+
+        .masonry-item::after {
+            content: '🔍';
+            position: absolute;
+            inset: 0;
+            background: rgba(201, 169, 110, .6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            opacity: 0;
+            transition: opacity .4s
+        }
+
+        .masonry-item:hover::after {
+            opacity: 1
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.05)
+        }
+
+        @media(max-width:768px) {
+            .masonry {
+                columns: 2
+            }
+        }
+
+        @media(max-width:480px) {
+            .masonry {
+                columns: 1
+            }
+        }
+
+        /* ===================== LIGHTBOX ===================== */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(30, 10, 5, .92);
+            align-items: center;
+            justify-content: center
+        }
+
+        #lightbox.open {
+            display: flex
+        }
+
+        #lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 0 80px rgba(0, 0, 0, .5)
+        }
+
+        #lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1
+        }
+
+        /* ===================== PEDIDO ===================== */
+        #pedido {
+            padding: 6rem 0;
+            background: var(--color-primary)
+        }
+
+        .pedido-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 4rem;
+            align-items: start
+        }
+
+        .pedido-info h2 {
+            margin-bottom: .8rem
+        }
+
+        .pedido-info p {
+            color: #7a5a4a;
+            line-height: 1.8;
+            margin-top: .6rem
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem
+        }
+
+        .form-group.full {
+            grid-column: 1/-1
+        }
+
+        .form-group label {
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            color: var(--color-dark);
+            text-transform: uppercase
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: .85rem 1.1rem;
+            border: 1.5px solid var(--color-accent);
+            border-radius: 12px;
+            font-family: 'Lato', sans-serif;
+            font-size: .95rem;
+            background: #fff;
+            color: var(--color-dark);
+            transition: border .25s
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-secondary)
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 110px
+        }
+
+        .form-submit {
+            margin-top: 1.4rem
+        }
+
+        @media(max-width:768px) {
+            .pedido-wrap {
+                grid-template-columns: 1fr
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* ===================== NEWSLETTER ===================== */
+        #newsletter {
+            background: var(--color-dark);
+            padding: 5rem 0;
+            text-align: center
+        }
+
+        .nl-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: var(--color-cream);
+            font-weight: 600;
+            margin-bottom: .8rem
+        }
+
+        .nl-sub {
+            color: var(--color-accent);
+            font-size: .95rem;
+            margin-bottom: 2rem;
+            line-height: 1.7
+        }
+
+        .nl-form {
+            display: flex;
+            max-width: 480px;
+            margin: 0 auto;
+            gap: .8rem;
+            flex-wrap: wrap;
+            justify-content: center
+        }
+
+        .nl-form input {
+            flex: 1 1 260px;
+            padding: .9rem 1.3rem;
+            border-radius: var(--radius-pill);
+            border: none;
+            font-family: 'Lato', sans-serif;
+            font-size: .95rem;
+            background: rgba(253, 250, 247, .12);
+            color: var(--color-cream);
+            border: 1.5px solid rgba(201, 169, 110, .4)
+        }
+
+        .nl-form input::placeholder {
+            color: rgba(253, 250, 247, .5)
+        }
+
+        .nl-form input:focus {
+            outline: none;
+            border-color: var(--color-secondary)
+        }
+
+        /* ===================== FOOTER ===================== */
+        footer {
+            background: var(--color-choco);
+            padding: 4rem 0 2rem;
+            color: var(--color-cream)
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            margin-bottom: .8rem
+        }
+
+        .footer-desc {
+            font-size: .88rem;
+            line-height: 1.7;
+            color: var(--color-accent);
+            max-width: 240px
+        }
+
+        .footer-horario {
+            font-size: .82rem;
+            color: var(--color-accent);
+            margin-top: .8rem
+        }
+
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--color-secondary)
+        }
+
+        .footer-col ul li {
+            margin-bottom: .6rem
+        }
+
+        .footer-col ul li a {
+            font-size: .85rem;
+            color: var(--color-accent);
+            transition: color .25s
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--color-secondary)
+        }
+
+        .social-links {
+            display: flex;
+            gap: .8rem;
+            margin-top: .6rem
+        }
+
+        .social-links a {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(201, 169, 110, .4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all .3s;
+            color: var(--color-accent)
+        }
+
+        .social-links a:hover {
+            background: var(--color-secondary);
+            border-color: var(--color-secondary);
+            color: #fff
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(201, 169, 110, .2);
+            padding-top: 1.5rem;
+            text-align: center;
+            font-size: .8rem;
+            color: rgba(253, 250, 247, .45)
+        }
+
+        @media(max-width:1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(max-width:600px) {
+            .footer-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* ===================== WHATSAPP FLOTANTE ===================== */
+        #wa-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            width: 58px;
+            height: 58px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            box-shadow: 0 6px 24px rgba(37, 211, 102, .4);
+            cursor: pointer;
+            transition: transform .3s var(--transition), box-shadow .3s;
+            text-decoration: none;
+            animation: wa-pulse 2.5s infinite
+        }
+
+        #wa-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 10px 36px rgba(37, 211, 102, .55)
+        }
+
+        @keyframes wa-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 6px 24px rgba(37, 211, 102, .4)
+            }
+
+            50% {
+                box-shadow: 0 6px 36px rgba(37, 211, 102, .65)
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar" aria-label="Navegación principal">
+        <div class="container nav-inner">
+            <a href="#" class="nav-logo">Dulce Atelier</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#talleres">Talleres</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#pedido">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content reveal">
+                    <p class="hero-label">Pastelería Artesanal · Lima, Perú</p>
+                    <h1 class="hero-title">El arte<br>de lo<br><em>dulce</em></h1>
+                    <p class="hero-subtitle">Creamos momentos únicos con ingredientes premium y técnicas parisinas. Cada
+                        pieza, una obra de arte comestible.</p>
+                    <div class="hero-btns">
+                        <a href="#catalogo" class="btn-gold">Ver Catálogo</a>
+                        <a href="#talleres" class="btn-outline">Nuestros Talleres</a>
+                    </div>
+                </div>
+                <div class="hero-carousel-wrap reveal">
+                    <div class="hero-circle"></div>
+                    <div class="carousel-3d">
+                        <div class="carousel-item-3d"><img src="./assets/torta_1.png" alt="Torta 1" loading="eager">
+                        </div>
+                        <div class="carousel-item-3d"><img
+                                src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80" alt="Torta 2"
+                                loading="eager"></div>
+                        <div class="carousel-item-3d"><img
+                                src="https://images.unsplash.com/photo-1514517521153-1be72277b32f?w=600&q=80"
+                                alt="Macarons" loading="eager"></div>
+                        <div class="carousel-item-3d"><img
+                                src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600&q=80"
+                                alt="Cheesecake" loading="eager"></div>
+                        <div class="carousel-item-3d"><img
+                                src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=600&q=80"
+                                alt="Cupcakes" loading="eager"></div>
+                        <div class="carousel-item-3d"><img src="./assets/donuts.png" alt="Donuts" loading="eager"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BANDA DE VALORES -->
+    <section id="valores" aria-label="Valores y estadísticas">
+        <div class="container">
+            <div class="valores-grid">
+                <div class="valor-item reveal">
+                    <div class="valor-icon">🌿</div>
+                    <div class="valor-num" data-target="500">0</div>
+                    <div class="valor-label">Clientes felices</div>
+                    <div class="valor-desc">Ingredientes Premium</div>
+                </div>
+                <div class="valor-item reveal">
+                    <div class="valor-icon">🏅</div>
+                    <div class="valor-num" data-target="5">0</div>
+                    <div class="valor-label">Años de experiencia</div>
+                    <div class="valor-desc">Delivery a Lima</div>
+                </div>
+                <div class="valor-item reveal">
+                    <div class="valor-icon">✨</div>
+                    <div class="valor-num" data-target="50">0</div>
+                    <div class="valor-label">Sabores únicos</div>
+                    <div class="valor-desc">100% Artesanal</div>
+                </div>
+                <div class="valor-item reveal">
+                    <div class="valor-icon">⭐</div>
+                    <div class="valor-num" id="starNum">0</div>
+                    <div class="valor-label">Calificación promedio</div>
+                    <div class="valor-desc">Pedidos Personalizados</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo" style="padding:7rem 0 6rem">
+        <div class="container">
+            <div class="catalog-header reveal">
+                <div class="gold-line"></div>
+                <h2 class="section-title">Nuestras <span>Creaciones</span></h2>
+                <p>Elaboradas con amor y los mejores ingredientes para cada ocasión especial</p>
+            </div>
+            <div class="catalog-grid">
+                <article class="product-card reveal">
+                    <span class="badge">⭐ Más pedido</span>
+                    <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80"
+                        alt="Torta Red Velvet" class="product-img" loading="lazy">
+                    <div class="product-body">
+                        <p class="product-name">Torta Red Velvet</p>
+                        <p class="product-price">S/ 180</p>
+                        <p class="product-desc">Terciopelo rojo con crema de queso Philadelphia. 8 porciones.</p>
+                        <a href="#pedido" class="product-btn">Solicitar pedido</a>
+                    </div>
+                </article>
+                <article class="product-card reveal">
+                    <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80" alt="Macarons"
+                        class="product-img" loading="lazy">
+                    <div class="product-body">
+                        <p class="product-name">Macarons (12 und)</p>
+                        <p class="product-price">S/ 85</p>
+                        <p class="product-desc">Surtido de sabores: frambuesa, pistache, vainilla, chocolate.</p>
+                        <a href="#pedido" class="product-btn">Solicitar pedido</a>
+                    </div>
+                </article>
+                <article class="product-card reveal">
+                    <span class="badge">⭐ Más pedido</span>
+                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80" alt="Cheesecake"
+                        class="product-img" loading="lazy">
+                    <div class="product-body">
+                        <p class="product-name">Cheesecake Frutos Rojos</p>
+                        <p class="product-price">S/ 120</p>
+                        <p class="product-desc">Base de galleta, relleno de queso crema y coulis de berries.</p>
+                        <a href="#pedido" class="product-btn">Solicitar pedido</a>
+                    </div>
+                </article>
+                <article class="product-card reveal">
+                    <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=600&q=80" alt="Cupcakes"
+                        class="product-img" loading="lazy">
+                    <div class="product-body">
+                        <p class="product-name">Cupcakes (6 und)</p>
+                        <p class="product-price">S/ 65</p>
+                        <p class="product-desc">Esponjosos y decorados a mano. Sabores a elegir.</p>
+                        <a href="#pedido" class="product-btn">Solicitar pedido</a>
+                    </div>
+                </article>
+                <article class="product-card reveal">
+                    <img src="./assets/tarta_limon.png" alt="Tarta de Limón" class="product-img" loading="lazy">
+                    <div class="product-body">
+                        <p class="product-name">Tarta de Limón</p>
+                        <p class="product-price">S/ 95</p>
+                        <p class="product-desc">Crema de limón artesanal con merengue italiano flameado.</p>
+                        <a href="#pedido" class="product-btn">Solicitar pedido</a>
+                    </div>
+                </article>
+                <article class="product-card reveal">
+                    <img src="./assets/caja_regalo.png" alt="Caja Regalo" class="product-img" loading="lazy">
+                    <div class="product-body">
+                        <p class="product-name">Caja Regalo Especial</p>
+                        <p class="product-price">S/ 220</p>
+                        <p class="product-desc">Selección curada de nuestros postres estrella, ideal para regalar.</p>
+                        <a href="#pedido" class="product-btn">Solicitar pedido</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios">
+        <div class="container">
+            <div class="testi-header reveal">
+                <div class="gold-line"></div>
+                <h2 class="section-title">Lo que dicen <span>nuestras clientas</span></h2>
+            </div>
+            <div class="carousel-wrap reveal">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="testi-card">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80"
+                            alt="Valeria R." class="testi-avatar" loading="lazy">
+                        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testi-text">"La torta de cumpleaños que pedí para mi hija superó todas mis
+                            expectativas. Era tan perfecta que nadie quería cortarla. ¡Dulce Atelier es lo mejor de
+                            Lima!"</p>
+                        <p class="testi-name">Valeria Romero</p>
+                        <p class="testi-city">Miraflores, Lima</p>
+                    </div>
+                    <div class="testi-card">
+                        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&q=80"
+                            alt="Camila T." class="testi-avatar" loading="lazy">
+                        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testi-text">"Los macarons son simplemente exquisitos. El sabor de pistache es mi
+                            favorito absoluto. Los pido cada semana para la oficina y todos enloquecen con ellos."</p>
+                        <p class="testi-name">Camila Torres</p>
+                        <p class="testi-city">San Isidro, Lima</p>
+                    </div>
+                    <div class="testi-card">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80"
+                            alt="Lucía M." class="testi-avatar" loading="lazy">
+                        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testi-text">"Tomé el taller de tartas parisinas y fue una experiencia increíble. La
+                            instructora es súper paciente y profesional. Me llevé la receta perfecta y muchos
+                            recuerdos."</p>
+                        <p class="testi-name">Lucía Mendoza</p>
+                        <p class="testi-city">Surco, Lima</p>
+                    </div>
+                    <div class="testi-card">
+                        <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80"
+                            alt="Andrea V." class="testi-avatar" loading="lazy">
+                        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testi-text">"El cheesecake de frutos rojos tuvo a todos mis invitados pidiéndome la
+                            receta. Y el delivery llegó puntual y perfectamente empacado. ¡100% lo recomiendo!"</p>
+                        <p class="testi-name">Andrea Vargas</p>
+                        <p class="testi-city">La Molina, Lima</p>
+                    </div>
+                </div>
+                <div class="carousel-dots">
+                    <button class="carousel-dot active" data-idx="0" aria-label="Testimonio 1"></button>
+                    <button class="carousel-dot" data-idx="1" aria-label="Testimonio 2"></button>
+                    <button class="carousel-dot" data-idx="2" aria-label="Testimonio 3"></button>
+                    <button class="carousel-dot" data-idx="3" aria-label="Testimonio 4"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TALLERES -->
+    <section id="talleres">
+        <div class="container">
+            <div class="talleres-grid">
+                <div class="reveal">
+                    <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=800&q=80"
+                        alt="Taller de repostería Dulce Atelier" class="taller-img" loading="lazy">
+                </div>
+                <div class="reveal">
+                    <p class="taller-label">Aprende con nosotras</p>
+                    <h2 class="section-title">Talleres de <span>Repostería</span></h2>
+                    <p class="taller-text">Descubre el arte de la repostería artesanal con nuestras maestras pasteleras.
+                        Clases íntimas de máximo 8 personas para una experiencia personalizada y memorable.</p>
+                    <ul class="taller-lista">
+                        <li>Macarons Parisinos (nivel básico)</li>
+                        <li>Tartas Francesas (nivel intermedio)</li>
+                        <li>Decoración de Tortas con Fondant</li>
+                        <li>Chocolatería Artesanal</li>
+                        <li>Panadería Francesa – Croissants</li>
+                    </ul>
+                    <div class="fechas">
+                        <span class="fecha-tag">Marzo 2025</span>
+                        <span class="fecha-tag">Abril 2025</span>
+                        <span class="fecha-tag">Mayo 2025</span>
+                    </div>
+                    <a href="#pedido" class="btn-gold">Inscribirme ahora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section id="galeria" style="background:var(--color-primary)">
+        <div class="container">
+            <div class="galeria-header reveal">
+                <div class="gold-line" style="display:block;margin:0 auto 1rem"></div>
+                <h2 class="section-title" style="text-align:center">Nuestra <span>Galería</span></h2>
+            </div>
+            <div class="masonry" id="galeria-grid">
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80" alt="Torta elegante"
+                        loading="lazy">
+                </div>
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1514517521153-1be72277b32f?w=600&q=80"
+                        alt="Macarons coloridos" loading="lazy">
+                </div>
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600&q=80"
+                        alt="Cheesecake premium" loading="lazy">
+                </div>
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=600&q=80"
+                        alt="Cupcakes de temporada" loading="lazy">
+                </div>
+                <div class="masonry-item reveal">
+                    <img src="./assets/tarta_limon.png" alt="Tarta de limón" loading="lazy">
+                </div>
+                <div class="masonry-item reveal">
+                    <img src="./assets/caja_regalo.png" alt="Caja de regalo" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Galería en pantalla completa">
+        <button id="lightbox-close" aria-label="Cerrar">✕</button>
+        <img id="lightbox-img" src="" alt="Foto ampliada">
+    </div>
+
+    <!-- PEDIDO PERSONALIZADO -->
+    <section id="pedido">
+        <div class="container">
+            <div class="pedido-wrap">
+                <div class="reveal" id="nosotros">
+                    <div class="gold-line"></div>
+                    <h2 class="section-title">Pedido <span>Personalizado</span></h2>
+                    <p>Cuéntanos tu sueño y lo hacemos realidad. Cada creación es única y elaborada especialmente para
+                        ti. Respondemos en menos de 24 horas.</p>
+                    <div style="margin-top:2rem;display:flex;flex-direction:column;gap:.8rem">
+                        <p style="display:flex;align-items:center;gap:.6rem;font-size:.9rem"><span
+                                style="color:var(--color-secondary)">📍</span> Miraflores, Lima – Perú</p>
+                        <p style="display:flex;align-items:center;gap:.6rem;font-size:.9rem"><span
+                                style="color:var(--color-secondary)">📱</span> +51 955 000 111</p>
+                        <p style="display:flex;align-items:center;gap:.6rem;font-size:.9rem"><span
+                                style="color:var(--color-secondary)">✉️</span> hola@dulceatelier.pe</p>
+                        <p style="display:flex;align-items:center;gap:.6rem;font-size:.9rem"><span
+                                style="color:var(--color-secondary)">🕐</span> Lun–Sáb: 9am – 7pm</p>
+                    </div>
+                </div>
+                <form class="reveal" id="pedidoForm" novalidate>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+51 9XX XXX XXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="postre">Tipo de postre</label>
+                            <input type="text" id="postre" name="postre" placeholder="Ej: Torta Red Velvet" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ocasion">Ocasión</label>
+                            <select id="ocasion" name="ocasion" required>
+                                <option value="">Selecciona...</option>
+                                <option>Cumpleaños</option>
+                                <option>Matrimonio</option>
+                                <option>Baby Shower</option>
+                                <option>Aniversario</option>
+                                <option>Corporativo</option>
+                                <option>Sin ocasión especial</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha">Fecha de entrega</label>
+                            <input type="date" id="fecha" name="fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="personas">Número de personas</label>
+                            <input type="number" id="personas" name="personas" placeholder="Ej: 10" min="1" required>
+                        </div>
+                        <div class="form-group full">
+                            <label for="mensaje">Mensaje especial</label>
+                            <textarea id="mensaje" name="mensaje"
+                                placeholder="Cuéntanos todos los detalles de tu pedido especial..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="btn-gold" style="width:100%;font-size:1rem;padding:1rem">Enviar
+                            pedido ✦</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section id="newsletter">
+        <div class="container reveal">
+            <h2 class="nl-title">Únete a nuestra comunidad dulce</h2>
+            <p class="nl-sub">Recibe recetas exclusivas y ofertas especiales directamente en tu bandeja de entrada</p>
+            <form class="nl-form" id="nlForm" novalidate>
+                <input type="email" placeholder="Tu correo electrónico" required aria-label="Correo para newsletter">
+                <button type="submit" class="btn-gold">Suscribirme</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <p class="footer-logo">Dulce Atelier</p>
+                    <p class="footer-desc">Pastelería artesanal de lujo con alma parisina y corazón peruano. Creamos
+                        momentos dulces desde 2020.</p>
+                    <p class="footer-horario">🕐 Lun–Sáb: 9am – 7pm</p>
+                    <div class="social-links" style="margin-top:1.2rem">
+                        <a href="#" aria-label="Instagram">📸</a>
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="TikTok">🎵</a>
+                        <a href="#" aria-label="WhatsApp">💬</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Productos</h4>
+                    <ul>
+                        <li><a href="#catalogo">Tortas personalizadas</a></li>
+                        <li><a href="#catalogo">Macarons</a></li>
+                        <li><a href="#catalogo">Cheesecakes</a></li>
+                        <li><a href="#catalogo">Cupcakes</a></li>
+                        <li><a href="#catalogo">Cajas regalo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Información</h4>
+                    <ul>
+                        <li><a href="#nosotros">Sobre nosotras</a></li>
+                        <li><a href="#talleres">Talleres</a></li>
+                        <li><a href="#">Política de delivery</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="tel:+51955000111">+51 955 000 111</a></li>
+                        <li><a href="mailto:hola@dulceatelier.pe">hola@dulceatelier.pe</a></li>
+                        <li><a href="#">Miraflores, Lima</a></li>
+                        <li><a href="#pedido">Haz tu pedido</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Dulce Atelier. Todos los derechos reservados. Hecho con 🤍 en Lima, Perú.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Flotante -->
+    <a id="wa-btn" href="https://wa.me/51955000111?text=Hola%20Dulce%20Atelier%2C%20quisiera%20hacer%20un%20pedido"
+        target="_blank" rel="noopener" aria-label="Contáctanos por WhatsApp">💬</a>
+
+    <!-- ===================== JAVASCRIPT ===================== -->
+    <script>
+        (function () {
+            'use strict';
+
+            /* --- NAVBAR SCROLL --- */
+            const navbar = document.getElementById('navbar');
+            const THRESHOLD = 80;
+            window.addEventListener('scroll', () => {
+                navbar.classList.toggle('scrolled', window.scrollY > THRESHOLD);
+            }, { passive: true });
+
+            /* --- MOBILE MENU --- */
+            const toggle = document.getElementById('navToggle');
+            const links = document.getElementById('navLinks');
+            toggle.addEventListener('click', () => links.classList.toggle('open'));
+            links.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => links.classList.remove('open'));
+            });
+
+            /* --- SMOOTH SCROLL --- */
+            document.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.addEventListener('click', e => {
+                    const target = document.querySelector(a.getAttribute('href'));
+                    if (!target) return;
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            /* --- INTERSECTION OBSERVER (reveal) --- */
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+            /* --- CONTADOR ANIMADO --- */
+            function animateCount(el, target, suffix, decimals) {
+                const duration = 2000;
+                const start = performance.now();
+                function step(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const value = eased * target;
+                    el.textContent = decimals ? value.toFixed(1) + suffix : Math.floor(value) + suffix;
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const nums = document.querySelectorAll('[data-target]');
+                    nums.forEach(el => {
+                        const t = parseFloat(el.dataset.target);
+                        const suffix = t >= 50 ? '+' : '';
+                        animateCount(el, t, suffix, false);
+                    });
+                    const star = document.getElementById('starNum');
+                    if (star) animateCount(star, 4.9, '★', true);
+                    counterObserver.disconnect();
+                });
+            }, { threshold: 0.4 });
+
+            const valoresSection = document.getElementById('valores');
+            if (valoresSection) counterObserver.observe(valoresSection);
+
+            /* --- CARRUSEL TESTIMONIOS --- */
+            const track = document.getElementById('carouselTrack');
+            const dots = document.querySelectorAll('.carousel-dot');
+            let current = 0;
+            let timer;
+
+            function goTo(idx) {
+                current = (idx + dots.length) % dots.length;
+                track.style.transform = `translateX(-${current * 100}%)`;
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+            }
+
+            function startTimer() {
+                clearInterval(timer);
+                timer = setInterval(() => goTo(current + 1), 4000);
+            }
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    goTo(parseInt(dot.dataset.idx));
+                    startTimer();
+                });
+            });
+
+            startTimer();
+
+            /* --- LIGHTBOX --- */
+            const lightbox = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            const lbClose = document.getElementById('lightbox-close');
+
+            document.querySelectorAll('.masonry-item img').forEach(img => {
+                img.parentElement.addEventListener('click', () => {
+                    lbImg.src = img.src.replace('w=600', 'w=1200');
+                    lbImg.alt = img.alt;
+                    lightbox.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            function closeLightbox() {
+                lightbox.classList.remove('open');
+                document.body.style.overflow = '';
+                lbImg.src = '';
+            }
+
+            lbClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', e => {
+                if (e.target === lightbox) closeLightbox();
+            });
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') closeLightbox();
+            });
+
+            /* --- FORMULARIOS --- */
+            document.getElementById('pedidoForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const btn = e.target.querySelector('[type=submit]');
+                btn.textContent = '¡Pedido enviado! 🎉';
+                btn.style.background = '#4caf50';
+                btn.style.borderColor = '#4caf50';
+                setTimeout(() => {
+                    btn.textContent = 'Enviar pedido ✦';
+                    btn.style.background = '';
+                    btn.style.borderColor = '';
+                    e.target.reset();
+                }, 3500);
+            });
+
+            document.getElementById('nlForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const btn = e.target.querySelector('button');
+                btn.textContent = '¡Suscrita! 🤍';
+                setTimeout(() => { btn.textContent = 'Suscribirme'; e.target.reset(); }, 3000);
+            });
+
+        })();
+    </script>
+</body>
+
+</html>
